@@ -1,4 +1,3 @@
-import com.typesafe.sbt.SbtScalariform._
 import xerial.sbt.Sonatype._
 
 import scalariform.formatter.preferences._
@@ -9,22 +8,22 @@ import scalariform.formatter.preferences._
 
 name := "play-silhouette-persistence-reactivemongo"
 
-version := "5.0.6"
+version := "6.0.0"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
-crossScalaVersions := Seq("2.12.6", "2.11.12")
+crossScalaVersions := Seq("2.12.8", "2.13.0")
 
 resolvers += Resolver.jcenterRepo
 
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
-  "com.mohiva" %% "play-silhouette" % "5.0.6",
-  "com.mohiva" %% "play-silhouette-persistence" % "5.0.6",
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.16.0-play26",
-  "net.codingwell" %% "scala-guice" % "4.2.1" % "test",
-  "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "2.1.1" % "test",
+  "com.mohiva" %% "play-silhouette" % "6.0.0",
+  "com.mohiva" %% "play-silhouette-persistence" % "6.0.0",
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.17.1-play27",
+  "net.codingwell" %% "scala-guice" % "4.2.5" % "test",
+  "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "2.2.0" % "test",
   specs2 % Test
 )
 
@@ -85,7 +84,7 @@ val pom = <scm>
         <name>Christian Kaps</name>
         <url>http://mohiva.com</url>
       </developer>
-    </developers>;
+    </developers>
 
 publishMavenStyle := true
 
@@ -101,9 +100,11 @@ pomExtra := pom
 // Scalariform settings
 //********************************************************
 
-defaultScalariformSettings
-
-ScalariformKeys.preferences := ScalariformKeys.preferences.value
+scalariformPreferences := scalariformPreferences.value
   .setPreference(FormatXml, false)
-  .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(DanglingCloseParenthesis, Preserve)
+  .setPreference(AlignParameters, true)
+  .setPreference(DoubleIndentConstructorArguments, true)
+  .setPreference(MultilineScaladocCommentsStartOnFirstLine, true)
+  .setPreference(SpacesAroundMultiImports, true)
+  .setPreference(IndentWithTabs, true)
