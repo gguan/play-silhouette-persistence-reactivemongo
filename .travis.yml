@@ -1,22 +1,22 @@
 sudo: false
 language: scala
 scala:
-  - 2.12.4
-  - 2.11.12
+  - 2.12.8
 jdk:
   - oraclejdk8
 cache:
   directories:
     # caching scala stuff based on
-    # http://www.scala-sbt.org/0.13/docs/Travis-CI-with-sbt.html#%28Experimental%29+Reusing+Ivy+cache
+    # https://www.scala-sbt.org/1.x/docs/Travis-CI-with-sbt.html#%28Experimental%29+Reusing+Ivy+cache
     - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot/
+    - $HOME/.sbt
 script:
   - scripts/ci-build
   # cleanup travis trick from
   # http://www.scala-sbt.org/0.13/docs/Travis-CI-with-sbt.html#%28Experimental%29+Reusing+Ivy+cache
-  - find $HOME/.sbt -name "*.lock" -delete
-  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+  - rm -fv $HOME/.ivy2/.sbt.ivy.lock
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+  - find $HOME/.sbt        -name "*.lock"               -print -delete
 after_success:
   - scripts/coveralls
 notifications:
